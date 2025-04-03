@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Walking Dead API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>The Walking Dead - Personagens</h1>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Buscar personagem..." onkeyup="searchCharacter()">
+        </div>
+    </header>
+
+    <main>
+        <div id="character-container" class="character-grid"></div>
+    </main>
+
+    <script>
+        
+        const characters = [
+            { name: "Rick Grimes", status: "Vivo", role: "Líder do grupo", image: "fotos/rick.png" },
+            { name: "Daryl Dixon", status: "Vivo", role: "Caçador e sobrevivente", image: "fotos/daryl.png" },
+            { name: "Michonne", status: "Vivo", role: "Espadachim habilidosa", image: "fotos/michonne.png" },
+            { name: "Glenn Rhee", status: "Morto", role: "Explorador", image: "fotos/gleen.png" },
+            { name: "Negan", status: "Vivo", role: "Ex-líder dos Salvadores", image: "fotos/negann.png" },
+            { name: "Maggie Greene", status: "Vivo", role: "Líder de Hilltop", image: "fotos/maggie.png" },
+            { name: "Carol Peletier", status: "Vivo", role: "Sobrevivente forte", image: "fotos/carol.png" },
+            { name: "Morgan Jones", status: "Vivo", role: "Guerreiro pacifista", image: "fotos/morgan.png" },
+            { name: "Judith Grimes", status: "Vivo", role: "Filha de Rick", image: "fotos/judith.png" },
+            { name: "Carl Grimes", status: "Morto", role: "Filho de Rick", image: "fotos/carl.png" },
+            { name: "Rosita Espinosa", status: "Morto", role: "Lutadora forte", image: "fotos/rosita.png" },
+            { name: "Abraham Ford", status: "Morto", role: "Ex militar, forte lutador", image: "fotos/abraham.png" }
+                            ];
+        function loadCharacters() {
+            const container = document.getElementById("character-container");
+            container.innerHTML = "";
+
+            characters.forEach(character => {
+                const charCard = document.createElement("div");
+                charCard.classList.add("character-card");
+
+                charCard.innerHTML = `
+                    <img src="${character.image}" alt="${character.name}">
+                    <h2>${character.name}</h2>
+                    <p><strong>Status:</strong> ${character.status}</p>
+                    <p><strong>Papel:</strong> ${character.role}</p>
+                `;
+
+                container.appendChild(charCard);
+            });
+        }
+
+        function searchCharacter() {
+            const searchInput = document.getElementById("search").value.toLowerCase();
+            const cards = document.querySelectorAll(".character-card");
+
+            cards.forEach(card => {
+                const name = card.querySelector("h2").textContent.toLowerCase();
+                if (name.includes(searchInput)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        
+        document.addEventListener("DOMContentLoaded", loadCharacters);
+    </script>
+
+</body>
+</html>
